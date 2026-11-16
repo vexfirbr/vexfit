@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VEX — Treine. Supere. Evolua.</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        vexDark: '#111111',
+                        vexCard: '#1a1a1a',
+                        vexCardHover: '#242424',
+                        vexBlue: '#0047AB',
+                        vexCyan: '#00E5FF',
+                        vexBorder: '#2a2a2a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scrollbar hiding for smooth mobile app feel */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            background-color: #111111;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-vexDark text-gray-100 flex justify-center items-center min-h-screen">
+
+    <!-- Mobile Frame Container for Desktop & Mobile view -->
+    <div class="w-full max-w-md h-[100vh] sm:h-[844px] sm:rounded-3xl bg-vexDark sm:border sm:border-vexBorder flex flex-col relative overflow-hidden shadow-2xl">
+
+        <!-- Top Header Bar -->
+        <header class="px-5 pt-6 pb-4 flex justify-between items-center bg-vexDark/80 backdrop-blur-md z-10 border-b border-vexBorder/40">
+            <div class="flex items-center space-x-3">
+                <!-- VEX Logo Vectorized representation -->
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-vexCyan to-vexBlue flex items-center justify-center shadow-lg shadow-vexBlue/30">
+                    <svg class="w-5 h-5 text-white transform -rotate-45" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xs uppercase tracking-widest text-vexCyan font-semibold">VEX SaaS</h1>
+                    <p class="text-sm font-bold text-white">Olá, Carlos 👋</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="showNotification('Você tem 1 nova mensagem do seu treinador.')" class="w-9 h-9 rounded-full bg-vexCard border border-vexBorder flex items-center justify-center text-gray-300 hover:text-vexCyan transition relative">
+                    <i class="fa-regular fa-bell text-sm"></i>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-vexCyan rounded-full animate-pulse"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Scrollable Content Area -->
+        <main id="main-content" class="flex-1 overflow-y-auto no-scrollbar pb-24">
+            
+            <!-- TAB 1: INÍCIO (Dashboard Diário) -->
+            <div id="tab-inicio" class="tab-pane px-5 py-4 space-y-5 animate-fade">
+                
+                <!-- Today's Workout Banner / Card -->
+                <div class="bg-gradient-to-r from-vexCard to-vexCardHover border border-vexBorder rounded-2xl p-4 relative overflow-hidden shadow-md">
+                    <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-vexBlue/10 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[11px] font-semibold uppercase tracking-wider bg-vexBlue/20 text-vexCyan px-2.5 py-1 rounded-full border border-vexBlue/30">Treino de Hoje</span>
+                        <span class="text-xs text-gray-400"><i class="fa-regular fa-clock mr-1"></i> 45 min</span>
+                    </div>
+                    <h2 class="text-lg font-bold text-white mb-1">Treino A: Superiores (Foco Peito/Costas)</h2>
+                    <p class="text-xs text-gray-400 mb-4">12 exercícios programados para alta intensidade.</p>
+                    <button onclick="switchTab('treinos')" class="w-full py-2.5 bg-gradient-to-r from-vexBlue to-blue-600 hover:from-blue-600 hover:to-vexBlue text-white text-xs font-semibold rounded-xl shadow-lg shadow-vexBlue/30 transition flex items-center justify-center space-x-2">
+                        <span>Iniciar Treino Agora</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </div>
+
+                <!-- Daily Summary Grid (Calories & Water) -->
+                <div class="grid grid-cols-2 gap-3">
+                    <!-- Calories Card -->
+                    <div class="bg-vexCard border border-vexBorder rounded-2xl p-4 flex flex-col justify-between">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs text-gray-400 font-medium">Calorias</span>
+                            <i class="fa-solid fa-fire text-vexCyan text-sm"></i>
+                        </div>
+                        <div class="my-1">
+                            <span class="text-xl font-bold text-white">1,650</span>
+                            <span class="text-[11px] text-gray-400">/ 2,200 kcal</span>
+                        </div>
+                        <!-- Progress bar -->
+                        <div class="w-full bg-vexBorder h-1.5 rounded-full overflow-hidden mt-2">
+                            <div class="bg-gradient-to-r from-vexBlue to-vexCyan h-full rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Water Hydration Card -->
+                    <div class="bg-vexCard border border-vexBorder rounded-2xl p-4 flex flex-col justify-between">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs text-gray-400 font-medium">Hidratação</span>
+                            <i class="fa-solid fa-droplet text-vexCyan text-sm"></i>
+                        </div>
+                        <div class="my-1">
+                            <span class="text-xl font-bold text-white">2.4L</span>
+                            <span class="text-[11px] text-gray-400">/ 3.0L</span>
+                        </div>
+                        <div class="w-full bg-vexBorder h-1.5 rounded-full overflow-hidden mt-2">
+                            <div class="bg-vexCyan h-full rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Nutrition Quick Scanner Banner -->
+                <div class="bg-vexCard border border-vexBorder rounded-2xl p-4 flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-11 h-11 rounded-xl bg-vexBlue/20 border border-vexBlue/40 flex items-center justify-center text-vexCyan">
+                            <i class="fa-solid fa-camera-retro text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-white">Análise de Prato por IA</h3>
+                            <p class="text-[11px] text-gray-400">Escaneie sua refeição com Gemini Flash</p>
+                        </div>
+                    </div>
+                    <button onclick="switchTab('dieta')" class="px-3.5 py-2 bg-vexBorder hover:bg-vexCardHover text-xs font-semibold text-vexCyan rounded-xl transition border border-vexBorder">
+                        Escanear
+                    </button>
+                </div>
+
+                <!-- Recent Activities List -->
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Atividades Recentes</h3>
+                        <span class="text-[11px] text-vexCyan cursor-pointer hover:underline">Ver tudo</span>
+                    </div>
+                    <div class="space-y-2.5">
+                        <div class="bg-vexCard border border-vexBorder rounded-xl p-3 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded-lg bg-green-500/10 text-green-400 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-utensils"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-semibold text-white">Almoço (Frango & Arroz)</p>
+                                    <p class="text-[10px] text-gray-400">Registrado há 2 horas • 650 kcal</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-vexCyan">Concluído</span>
+                        </div>
+                        <div class="bg-vexCard border border-vexBorder rounded-xl p-3 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded-lg bg-vexBlue/10 text-vexCyan flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-dumbbell"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-semibold text-white">Treino de Pernas</p>
+                                    <p class="text-[10px] text-gray-400">Ontem • 52 min • 4,800kg volume</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-green-400">100%</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TAB 2: TREINOS -->
+            <div id="tab-treinos" class="tab-pane hidden px-5 py-4 space-y-4 animate-fade">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-base font-bold text-white">Meus Treinos</h2>
+                    <button onclick="showNotification('Novo treino personalizado gerado com sucesso!')" class="text-xs bg-vexBlue/20 text-vexCyan border border-vexBlue/40 px-3 py-1.5 rounded-xl font-semibold hover:bg-vexBlue/30 transition">
+                        + Criar Ficha
+                    </button>
+                </div>
+
+                <!-- Workout Categories Filter -->
+                <div class="flex space-x-2 overflow-x-auto no-scrollbar pb-1">
+                    <button class="px-4 py-1.5 bg-vexBlue text-white text-xs font-semibold rounded-full shadow">Hoje</button>
+                    <button class="px-4 py-1.5 bg-vexCard text-gray-400 text-xs font-semibold rounded-full border border-vexBorder">Semana</button>
+                    <button class="px-4 py-1.5 bg-vexCard text-gray-400 text-xs font-semibold rounded-full border border-vexBorder">Fichas A-D</button>
+                    <button class="px-4 py-1.5 bg-vexCard text-gray-400 text-xs font-semibold rounded-full border border-vexBorder">Favoritos</button>
+                </div>
+
+                <!-- Exercise List -->
+                <div class="space-y-3 pt-2">
+                    <!-- Exercise Item 1 -->
+                    <div class="bg-vexCard border border-vexBorder rounded-2xl p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="flex items-center space-x-2.5">
+                                <div class="w-8 h-8 rounded-lg bg-vexBlue/10 text-vexCyan flex items-center justify-center font-bold text-xs">1</div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white">Supino Reto com Barra</h4>
+                                    <p class="text-[11px] text-gray-400">4 séries • 10 repetições</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] bg-green-500/10 text-green-400 px-2 py-0.5 rounded font-semibold">Em Andamento</span>
+                        </div>
+                        <div class="grid grid-cols-4 gap-2 mt-3 pt-3 border-t border-vexBorder/60 text-center">
+                            <div class="bg-vexDark p-1.5 rounded-lg border border-vexBorder">
+                                <span class="text-[10px] text-gray-400 block">Série 1</span>
+                                <span class="text-xs font-bold text-white">70kg × 10</span>
+                            </div>
+                            <div class="bg-vexDark p-1.5 rounded-lg border border-vexBorder">
+                                <span class="text-[10px] text-gray-400 block">Série 2</span>
+                                <span class="text-xs font-bold text-white">72kg × 10</span>
+                            </div>
+                            <div class="bg-vexDark p-1.5 rounded-lg border border-vexBorder">
+                                <span class="text-[10px] text-gray-400 block">Série 3</span>
+                                <span class="text-xs font-bold text-vexCyan">75kg × 8</span>
+                            </div>
+                            <div class="bg-vexDark p-1.5 rounded-lg border border-vexBorder">
+                                <span class="text-[10px] text-gray-400 block">Série 4</span>
+                                <span class="text-xs font-bold text-gray-500">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercise Item 2 -->
+                    <div class="bg-vexCard border border-vexBorder rounded-2xl p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="flex items-center space-x-2.5">
+                                <div class="w-8 h-8 rounded-lg bg-vexBlue/10 text-vexCyan flex items-center justify-center font-bold text-xs">2</div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white">Crucifixo Inclinado</h4>
+                                    <p class="text-[11px] text-gray-400">3 séries • 12 repetições</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] bg-vexBorder text-gray-400 px-2 py-0.5 rounded font-semibold">Pendente</span>
+                        </div>
+                    </div>
+
+                    <!-- Exercise Item 3 -->
+                    <div class="bg-vexCard border border-vexBorder rounded-2xl p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="flex items-center space-x-2.5">
+                                <div class="w-8 h-8 rounded-lg bg-vexBlue/10 text-vexCyan flex items-center justify-center font-bold text-xs">3</div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white">Desenvolvimento com Halteres</h4>
+                                    <p class="text-[11px] text-gray-400">4 séries • 10 repetições</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] bg-vexBorder text-gray-400 px-2 py-0.5 rounded font-semibold">Pendente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="showNotification('Treino finalizado e salvo na nuvem com sucesso!')" class="w-full py-3 bg-gradient-to-r from-vexBlue to-blue-600 text-white text-xs font-bold rounded-xl shadow-lg shadow-vexBlue/30 transition mt-4">
+                    Finalizar Treino de Hoje
+                </button>
+            </div>
+
+            <!-- TAB 3: DIETA -->
+            <div id="tab-dieta" class="tab-pane hidden px-5 py-4 space-y-4 animate-fade">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-base font-bold text-white">Análise Nutricional (IA)</h2>
+                    <button onclick="triggerSimulatedScan()" class="text-xs bg-vexCyan text-black px-3.5 py-1.5 rounded-xl font-bold shadow-md shadow-vexCyan/20 hover:bg-cyan-400 transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>Nova Foto</span>
+                    </button>
+                </div>
+
+                <!-- Simulated AI Photo Scan Card -->
+                <div class="bg-vexCard border border-vexBorder rounded-2xl p-4">
+                    <div class="relative h-44 rounded-xl overflow-hidden bg-vexDark border border-vexBorder mb-3 flex items-center justify-center">
+                        <img id="food-img" src="https://placehold.co/600x400/1a1a1a/00E5FF?text=Prato+Analisado+pela+IA" alt="Prato Escaneado" class="w-full h-full object-cover opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
+                            <span class="text-xs font-semibold text-white bg-vexBlue/80 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-vexBlue/30">
+                                <i class="fa-solid fa-wand-magic-sparkles mr-1 text-vexCyan"></i> Análise Concluída (Gemini Flash)
+                            </span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-sm font-bold text-white mb-2">Arroz, Feijão, Frango Grelhado e Salada</h3>
+
+                    <!-- Macros Breakdown Table -->
+                    <div class="grid grid-cols-4 gap-2 text-center my-3">
+                        <div class="bg-vexDark p-2 rounded-xl border border-vexBorder">
+                            <span class="text-[10px] text-gray-400 block">Calorias</span>
+                            <span class="text-xs font-bold text-white">650 kcal</span>
+                        </div>
+                        <div class="bg-vexDark p-2 rounded-xl border border-vexBorder">
+                            <span class="text-[10px] text-gray-400 block">Proteína</span>
+                            <span class="text-xs font-bold text-vexCyan">48g</span>
+                        </div>
+                        <div class="bg-vexDark p-2 rounded-xl border border-vexBorder">
+                            <span class="text-[10px] text-gray-400 block">Carbo</span>
+                            <span class="text-xs font-bold text-white">55g</span>
+                        </div>
+                        <div class="bg-vexDark p-2 rounded-xl border border-vexBorder">
+                            <span class="text-[10px] text-gray-400 block">Gordura</span>
+                            <span class="text-xs font-bold text-white">12g</span>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-2 pt-2">
+                        <button onclick="showNotification('Refeição adicionada ao diário diário.')" class="flex-1 py-2 bg-vexBlue hover:bg-blue-600 text-white text-xs font-semibold rounded-xl transition">
+                            Confirmar Refeição
+                        </button>
+                        <button onclick="showNotification('Recalculando os macros via IA...')" class="px-3 py-2 bg-vexBorder hover:bg-vexCardHover text-gray-300 text-xs font-semibold rounded-xl transition">
+                            <i class="fa-solid fa-rotate"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Manual add item -->
+                <div class="bg-vexCard border border-vexBorder rounded-2xl p-4 flex items-center justify-between">
+                    <div>
+                        <h4 class="text-xs font-bold text-white">Deseja adicionar algo manualmente?</h4>
+                        <p class="text-[10px] text-gray-400">Busque no banco de dados de alimentos.</p>
+                    </div>
+                    <button onclick="showNotification('Abrindo busca de alimentos...')" class="px-3 py-1.5 bg-vexBorder hover:bg-vexCardHover text-xs font-semibold text-vexCyan rounded-xl border border-vexBorder">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- TAB 4: EVOLUÇÃO -->
+            <div id="tab-evolucao" class="tab-pane hidden px-5 py-4 space-y-4 animate-fade">
+                <h2 class="text-base font-bold text-white">Evolução & Medidas</h2>
+
+                <!-- Weight and Metrics Cards -->
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="bg-vexCard border border-vexBorder rounded-2xl p-3 text-center">
+                        <span class="text-[10px] text-gray-400 block mb-1">Peso Atual</span>
+                        <span class="text-lg font-bold text-white">82.5 kg</span>
+                        <span class="text-[10px] text-green-400 font-semibold block mt-1"><i class="fa-solid fa-arrow-down"></i> -0.5kg</span>
+                    </div>
+                    <div class="bg-vexCard border border-vexBorder rounded-2xl p-3 text-center">
+                        <span class="text-[10px] text-gray-400 block mb-1">Cintura</span>
+                        <span class="text-lg font-bold text-white">86 cm</span>
+                        <span class="text-[10px] text-green-400 font-semibold block mt-1"><i class="fa-solid fa-arrow-down"></i> -1.0cm</span>
+                    </div>
+                    <div class="bg-vexCard border border-vexBorder rounded-2xl p-3 text-center">
+                        <span class="text-[10px] text-gray-400 block mb-1">Braço Dir.</span>
+                        <span class="text-lg font-bold text-white">42 cm</span>
+                        <span class="text-[10px] text-vexCyan font-semibold block mt-1"><i class="fa-solid fa-arrow-up"></i> +0.5cm</span>
+                    </div>
+                </div>
+
+                <!-- Simulated Progress Chart -->
+                <div class="bg-vexCard border border-vexBorder rounded-2xl p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xs font-semibold text-white">Volume Semanal de Carga (Pernas)</h3>
+                        <span class="text-[10px] bg-vexBlue/20 text-vexCyan px-2 py-0.5 rounded font-semibold">+14% este mês</span>
+                    </div>
+                    <div class="h-36 w-full flex items-end justify-between px-2 pt-6 border-b border-vexBorder/60">
+                        <div class="w-8 bg-vexBorder rounded-t-lg h-16 flex flex-col justify-end items-center pb-1"><span class="text-[9px] text-gray-400">Sem 1</span></div>
+                        <div class="w-8 bg-vexBorder rounded-t-lg h-22 flex flex-col justify-end items-center pb-1"><span class="text-[9px] text-gray-400">Sem 2</span></div>
+                        <div class="w-8 bg-vexBlue/50 rounded-t-lg h-28 flex flex-col justify-end items-center pb-1"><span class="text-[9px] text-gray-300">Sem 3</span></div>
+                        <div class="w-8 bg-gradient-to-t from-vexBlue to-vexCyan rounded-t-lg h-32 flex flex-col justify-end items-center pb-1 shadow-lg shadow-vexCyan/20"><span class="text-[9px] text-black font-bold">Hoje</span></div>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 text-[11px] text-gray-400">
+                        <span>Progresso constante</span>
+                        <span class="text-vexCyan font-semibold">Meta: 10.000kg</span>
+                    </div>
+                </div>
+
+                <!-- Before & After Photos Section -->
+                <div class="bg-vexCard border border-vexBorder rounded-2xl p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xs font-semibold text-white">Galeria de Comparação</h3>
+                        <button onclick="showNotification('Foto de progresso enviada com segurança para o Supabase.')" class="text-[11px] text-vexCyan hover:underline font-semibold">+ Adicionar Foto</button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="h-32 rounded-xl bg-vexDark border border-vexBorder flex items-center justify-center overflow-hidden relative">
+                            <img src="https://placehold.co/300x400/1a1a1a/0047AB?text=Dezembro" alt="Foto Anterior" class="w-full h-full object-cover">
+                            <span class="absolute bottom-2 left-2 text-[10px] bg-black/60 px-2 py-0.5 rounded text-white">01/12/2026</span>
+                        </div>
+                        <div class="h-32 rounded-xl bg-vexDark border border-vexBorder flex items-center justify-center overflow-hidden relative">
+                            <img src="https://placehold.co/300x400/1a1a1a/00E5FF?text=Janeiro" alt="Foto Atual" class="w-full h-full object-cover">
+                            <span class="absolute bottom-2 left-2 text-[10px] bg-vexBlue/80 px-2 py-0.5 rounded text-white font-semibold">Atual</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Bottom Navigation Bar (Mobile Tab Bar) -->
+        <nav class="absolute bottom-0 left-0 right-0 h-20 bg-vexDark/95 backdrop-blur-md border-t border-vexBorder flex justify-around items-center px-2 z-20">
+            <button onclick="switchTab('inicio')" id="btn-inicio" class="nav-btn flex flex-col items-center justify-center w-16 py-1 text-vexCyan transition">
+                <i class="fa-solid fa-house text-lg mb-1"></i>
+                <span class="text-[10px] font-medium">Início</span>
+            </button>
+            <button onclick="switchTab('treinos')" id="btn-treinos" class="nav-btn flex flex-col items-center justify-center w-16 py-1 text-gray-400 hover:text-gray-200 transition">
+                <i class="fa-solid fa-dumbbell text-lg mb-1"></i>
+                <span class="text-[10px] font-medium">Treinos</span>
+            </button>
+            <button onclick="switchTab('dieta')" id="btn-dieta" class="nav-btn flex flex-col items-center justify-center w-16 py-1 text-gray-400 hover:text-gray-200 transition">
+                <i class="fa-solid fa-utensils text-lg mb-1"></i>
+                <span class="text-[10px] font-medium">Dieta</span>
+            </button>
+            <button onclick="switchTab('evolucao')" id="btn-evolucao" class="nav-btn flex flex-col items-center justify-center w-16 py-1 text-gray-400 hover:text-gray-200 transition">
+                <i class="fa-solid fa-chart-line text-lg mb-1"></i>
+                <span class="text-[10px] font-medium">Evolução</span>
+            </button>
+        </nav>
+
+        <!-- Custom Notification Toast -->
+        <div id="toast" class="absolute top-16 left-1/2 transform -translate-x-1/2 bg-vexCard border border-vexCyan/50 text-white text-xs px-4 py-2.5 rounded-2xl shadow-2xl opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center space-x-2">
+            <i class="fa-solid fa-circle-check text-vexCyan"></i>
+            <span id="toast-message">Notificação VEX</span>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Tab Navigation Logic
+        function switchTab(tabId) {
+            // Hide all tab panes
+            const panes = document.querySelectorAll('.tab-pane');
+            panes.forEach(pane => pane.classList.add('hidden'));
+
+            // Show selected tab pane
+            const activePane = document.getElementById(`tab-${tabId}`);
+            if (activePane) {
+                activePane.classList.remove('hidden');
+                activePane.scrollTop = 0;
+            }
+
+            // Reset all nav buttons style
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('text-vexCyan');
+                btn.classList.add('text-gray-400');
+            });
+
+            // Highlight active nav button
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-gray-400');
+                activeBtn.classList.add('text-vexCyan');
+            }
+        }
+
+        // Custom Toast Notification Function (No alert() used)
+        function showNotification(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            
+            toastMsg.innerText = message;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-1');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-1');
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // Simulated AI Scan trigger
+        function triggerSimulatedScan() {
+            showNotification('Analisando prato com Gemini Flash AI...');
+            setTimeout(() => {
+                showNotification('Refeição escaneada com sucesso!');
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
